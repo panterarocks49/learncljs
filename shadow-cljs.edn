@@ -1,9 +1,29 @@
 ;; shadow-cljs configuration
 {:source-paths
- ["src"]
+ ["src/cljs"]
 
  :dependencies
- []
+ [[reagent "0.8.0-alpha2"]
+  ;; [datascript "0.16.3"]
+  ;; [posh "0.5.6"]
+  [kibu/pushy "0.3.8"]
+  [bidi "2.1.2"]
+  ;; [devcards "0.2.4"]
+  [re-com "2.1.0"]
+  ]
 
  :builds
- {}}
+ {:dev {:target     :browser
+        :output-dir "resources/public/js/compiled"
+        :asset-path "/js/compiled"
+
+        :modules
+        {:main
+         {:entries [learncljs.core]}}
+
+        :devtools
+        {:before-load  learncljs.core/before-load
+         :after-load   learncljs.core/after-load
+         :http-handler shadow.http.push-state/handle
+         :http-root    "resources/public"
+         :http-port    8020}}}}
